@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const FormWrapper = styled.form`
@@ -58,67 +58,69 @@ const FormButton = styled.button`
   }
 `;
 
-class ContactForm extends Component {
-    state = {
-        name: '',
-        number: '',
-        id: '',
-    }
+export default function ContactForm({onAddContact}) {
+  // state = {
+  //     name: '',
+  //     number: '',
+  //     id: '',
+  // }
+  
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-    changeState = event => {
-        const { name, value } = event.currentTarget;
-        this.setState({
-            [name]: value,
-        });
-    }
+  const changeState = event => {
+      const { name, value } = event.currentTarget;
+      switch (name) {
+        case 'name':
+          setName(value);
+          break;
+        case 'number':
+          setNumber(value);
+          break;
+        default:
+          return;
+      }
+  }
 
-    contactSubmit = event => {
-        event.preventDefault();
-        const { name, value } = event.currentTarget;
-        this.setState({
-            [name]: value,
-        });
-        this.props.onAddContact(this.state);
-        this.reset();
-    }
+  const contactSubmit = event => {
+    event.preventDefault();
+    onAddContact({ name, number });
+    reset();
+  }
 
-    reset = () => {
-        this.setState({ name: '', number: '' });
-    }
+  const reset = () => {
+    setName('');
+    setNumber('');
+  }
 
-    render() {
-        const { name, number } = this.state;
-
-        return (
-            <FormWrapper onSubmit={this.contactSubmit}>
-                <FormLabel>
-                    <FormTitle>Name</FormTitle>
-                    <FormInput
-                        type="text"
-                        name="name"
-                        value={name}
-                        onChange={this.changeState}
-                        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                        title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-                        required
-                    />
-                </FormLabel>
-                <FormLabel>
-                    <FormTitle>Number</FormTitle>
-                    <FormInput
-                        type="tel"
-                        name="number"
-                        value={number}
-                        onChange={this.changeState}
-                        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                        title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-                        required
-                    />
-                </FormLabel>
-                <FormButton type="submit">Add contact</FormButton>
-            </FormWrapper>
-        );
-    }
+  return (
+    <FormWrapper onSubmit={contactSubmit}>
+        <FormLabel>
+            <FormTitle>Name</FormTitle>
+            <FormInput
+                type="text"
+                name="name"
+                value={name}
+                onChange={changeState}
+                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+                required
+            />
+        </FormLabel>
+        <FormLabel>
+            <FormTitle>Number</FormTitle>
+            <FormInput
+                type="tel"
+                name="number"
+                value={number}
+                onChange={changeState}
+                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+                required
+            />
+        </FormLabel>
+        <FormButton type="submit">Add contact</FormButton>
+    </FormWrapper>
+  );
 }
 
-export default ContactForm;
