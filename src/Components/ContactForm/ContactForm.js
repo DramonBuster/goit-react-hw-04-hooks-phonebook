@@ -59,11 +59,6 @@ const FormButton = styled.button`
 `;
 
 export default function ContactForm({onAddContact}) {
-  // state = {
-  //     name: '',
-  //     number: '',
-  //     id: '',
-  // }
   
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');

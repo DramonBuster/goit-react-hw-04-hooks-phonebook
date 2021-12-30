@@ -66,21 +66,6 @@ export default function Phonebook () {
     const getCurrentPhonebook = () => {
         return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
     }
-  
-    // const componentDidMount() {
-    //     const contacts = localStorage.getItem('contacts');
-    //     const parsedContacts = JSON.parse(contacts);
-    //     if (parsedContacts) {
-    //     setState({ contacts: parsedContacts });
-    //     }
-    // }
-
-    // const componentDidUpdate(prevPops, prevState) {
-    //     const { contacts} = state;
-    //     if (contacts !== prevState.contacts) {
-    //     localStorage.setItem('contacts', JSON.stringify(contacts));
-    //     }
-    // }
 
     useEffect(() => { 
         const contacts = localStorage.getItem('contacts');
