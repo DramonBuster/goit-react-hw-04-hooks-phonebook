@@ -30,10 +30,6 @@ const SubHeading = styled.h2`
 `;
 
 export default function Phonebook () {
-    // state = {
-    //     contacts: data,
-    //     filter: '',
-    // };
 
     const [contacts, setContacts] = useState(data);
     const [filter, setFilter] = useState('');
