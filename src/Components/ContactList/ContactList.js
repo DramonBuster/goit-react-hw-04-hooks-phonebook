@@ -6,8 +6,6 @@ const List = styled.ul`
   width: 400px;
 `;
 
-
-
 const ContactList = ({ contacts, onDeleteContact }) => (
     <List>
         {contacts.map(contact => (

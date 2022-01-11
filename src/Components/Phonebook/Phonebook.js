@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { nanoid } from 'nanoid';
 import styled from 'styled-components';
 import data from '../../data/contacts.json';
@@ -59,8 +59,10 @@ export default function Phonebook () {
         setFilter( event.currentTarget.value )
     }
 
+    const normalizedFilter = useMemo(() => filter.toLowerCase(), [filter])
+
     const getCurrentPhonebook = () => {
-        return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
+        return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter.trim()));
     }
 
     useEffect(() => { 
